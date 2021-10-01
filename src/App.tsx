@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Menu from "./Menu";
+import { DataSet } from "./Data";
 
 function App() {
+  var [selectedTitle, setSelectedTitle] = useState<string | undefined>();
+  var [selectedItem, setSelectedItem] = useState<string | undefined>();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {DataSet.map((option) => (
+        <Menu
+          menuList={option.list}
+          menuTitle={option.menuTitle}
+          selectedItem={selectedItem}
+          isSelected={selectedTitle === option.menuTitle}
+          onLinkClick={function (selectedTitle: string): void {
+            setSelectedItem(selectedTitle);
+          }}
+          onToggleClick={function (selectedMenu: string): void {
+            setSelectedTitle(selectedMenu);
+          }}
+        />
+      ))}
     </div>
   );
 }
